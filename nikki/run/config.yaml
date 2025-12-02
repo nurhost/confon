@@ -1,0 +1,227 @@
+proxy-providers:
+  "\U0001F530VPN 1\U0001F530":
+    type: file
+    path: "./providers/proxy/account-1.yaml"
+    health-check:
+      enable: true
+      url: http://www.gstatic.com/generate_204
+      interval: 99
+  "\U0001F530VPN 2\U0001F530":
+    type: file
+    path: "./providers/proxy/account-2.yaml"
+    health-check:
+      enable: true
+      url: http://www.gstatic.com/generate_204
+      interval: 99
+  "\U0001F530DIRECT\U0001F530":
+    type: file
+    path: "./providers/proxy/direct.yaml"
+    health-check:
+      enable: true
+      url: http://www.gstatic.com/generate_204
+      interval: 99
+proxy-groups:
+  - name: Sosmed
+    type: select
+    disable-udp: false
+    use:
+      - "\U0001F530DIRECT\U0001F530"
+    proxies:
+      - "\U0001F530VPN 1\U0001F530DIRECT\U0001F530"
+      - "\U0001F530VPN 1\U0001F530"
+      - "\U0001F530VPN 2\U0001F530DIRECT\U0001F530"
+      - "\U0001F530VPN 2\U0001F530"
+      - "\U0001F530VPN 1\U0001F530VPN 2\U0001F530"
+      - ☢️LOADBALANCE☢️
+    url: http://www.gstatic.com/generate_204
+    interval: '30'
+  - name: Games
+    type: select
+    disable-udp: false
+    use:
+      - "\U0001F530DIRECT\U0001F530"
+    proxies:
+      - "\U0001F530VPN 1\U0001F530DIRECT\U0001F530"
+      - "\U0001F530VPN 1\U0001F530"
+      - "\U0001F530VPN 2\U0001F530DIRECT\U0001F530"
+      - "\U0001F530VPN 2\U0001F530"
+      - "\U0001F530VPN 1\U0001F530VPN 2\U0001F530"
+      - ☢️LOADBALANCE☢️
+  - name: Streaming
+    type: select
+    disable-udp: false
+    use:
+      - "\U0001F530DIRECT\U0001F530"
+    proxies:
+      - "\U0001F530VPN 1\U0001F530DIRECT\U0001F530"
+      - "\U0001F530VPN 1\U0001F530"
+      - "\U0001F530VPN 2\U0001F530DIRECT\U0001F530"
+      - "\U0001F530VPN 2\U0001F530"
+      - "\U0001F530VPN 1\U0001F530VPN 2\U0001F530"
+      - ☢️LOADBALANCE☢️
+  - name: Ewallet
+    type: select
+    disable-udp: false
+    use:
+      - "\U0001F530DIRECT\U0001F530"
+    proxies:
+      - "\U0001F530VPN 1\U0001F530DIRECT\U0001F530"
+      - "\U0001F530VPN 1\U0001F530"
+      - "\U0001F530VPN 2\U0001F530DIRECT\U0001F530"
+      - "\U0001F530VPN 2\U0001F530"
+      - "\U0001F530VPN 1\U0001F530VPN 2\U0001F530"
+      - ☢️LOADBALANCE☢️
+  - name: "\U0001F530VPN 1\U0001F530"
+    type: load-balance
+    disable-udp: false
+    use:
+      - "\U0001F530VPN 1\U0001F530"
+    url: http://www.gstatic.com/generate_204
+    interval: '30'
+  - name: "\U0001F530VPN 2\U0001F530"
+    type: fallback
+    disable-udp: false
+    use:
+      - "\U0001F530VPN 2\U0001F530"
+    url: http://www.gstatic.com/generate_204
+    interval: '30'
+  - name: "\U0001F530VPN 1\U0001F530DIRECT\U0001F530"
+    type: load-balance
+    strategy: round-robin
+    disable-udp: false
+    proxies:
+      - "\U0001F530VPN 1\U0001F530"
+      - DIRECT
+    url: http://www.gstatic.com/generate_204
+    interval: '30'
+  - name: "\U0001F530VPN 2\U0001F530DIRECT\U0001F530"
+    type: load-balance
+    strategy: round-robin
+    disable-udp: false
+    proxies:
+      - "\U0001F530VPN 2\U0001F530"
+      - DIRECT
+    url: http://www.gstatic.com/generate_204
+    interval: '30'
+  - name: "\U0001F530VPN 1\U0001F530VPN 2\U0001F530"
+    type: load-balance
+    strategy: round-robin
+    disable-udp: false
+    proxies:
+      - "\U0001F530VPN 1\U0001F530"
+      - "\U0001F530VPN 2\U0001F530"
+    url: http://www.gstatic.com/generate_204
+    interval: '30'
+  - name: ☢️LOADBALANCE☢️
+    type: load-balance
+    strategy: round-robin
+    disable-udp: false
+    proxies:
+      - "\U0001F530VPN 1\U0001F530"
+      - "\U0001F530VPN 2\U0001F530"
+      - DIRECT
+    url: http://www.gstatic.com/generate_204
+    interval: '30'
+  - name: GLOBAL
+    type: select
+    disable-udp: false
+    use:
+      - "\U0001F530DIRECT\U0001F530"
+    proxies:
+      - "\U0001F530VPN 1\U0001F530DIRECT\U0001F530"
+      - "\U0001F530VPN 1\U0001F530"
+      - "\U0001F530VPN 2\U0001F530DIRECT\U0001F530"
+      - "\U0001F530VPN 2\U0001F530"
+      - "\U0001F530VPN 1\U0001F530VPN 2\U0001F530"
+      - ☢️LOADBALANCE☢️
+rule-providers:
+  Direct:
+    type: file
+    behavior: classical
+    path: "./providers/rule/direct.yaml"
+  Reject:
+    type: file
+    behavior: classical
+    path: "./providers/rule/reject.yaml"
+  Streaming:
+    type: file
+    behavior: classical
+    path: "./providers/rule/streaming.yaml"
+  Games:
+    type: file
+    behavior: classical
+    path: "./providers/rule/games.yaml"
+  Sosmed:
+    type: file
+    behavior: classical
+    path: "./providers/rule/sosmed.yaml"
+  Ewallet:
+    type: file
+    behavior: classical
+    path: "./providers/rule/ewallet.yaml"
+experimental:
+  ignore-resolve-fail: true
+rules:
+  - RULE-SET,Sosmed,Sosmed
+  - RULE-SET,Ewallet,Ewallet
+  - RULE-SET,Streaming,Streaming
+  - RULE-SET,Games,Games
+  - RULE-SET,Direct,DIRECT
+  - RULE-SET,Reject,REJECT
+  - MATCH,GLOBAL
+keep-alive-interval: 10
+keep-alive-idle: 600
+log-level: error
+mode: rule
+find-process-mode: off
+ipv6: true
+unified-delay: true
+tcp-concurrent: true
+disable-keep-alive: false
+global-client-fingerprint: chrome
+external-ui: ui
+external-ui-name: yacd
+external-ui-url: https://github.com/MetaCubeX/Yacd-meta/archive/refs/heads/gh-pages.zip
+external-controller: '[::]:9090'
+secret: rzx
+allow-lan: true
+port: 8080
+socks-port: 1080
+mixed-port: 7890
+redir-port: 7891
+tproxy-port: 7892
+authentication:
+  - nikki:reyre
+tun:
+  enable: true
+  device: nikki
+  stack: system
+  mtu: 1500
+  gso: true
+  gso-max-size: 65536
+  auto-route: false
+  auto-redirect: false
+  auto-detect-interface: false
+dns:
+  enable: true
+  listen: '[::]:1053'
+  ipv6: true
+  enhanced-mode: fake-ip
+  fake-ip-range: 198.18.0.1/16
+  respect-rules: false
+  use-system-hosts: true
+  use-hosts: true
+  default-nameserver:
+    - 8.8.8.8
+    - 8.8.4.4
+  nameserver:
+    - 8.8.8.8
+    - 8.8.4.4
+sniffer:
+  enable: false
+  force-dns-mapping: false
+  parse-pure-ip: false
+profile:
+  store-selected: true
+  store-fake-ip: true
+proxies: null

@@ -1,0 +1,336 @@
+default:
+- &Expi 26 desember
+
+- &uuid a642f546-9e3d-4d83-a6ce-a818b0fe35ce
+
+- &path /vless
+
+#  udp: true
+#  interface-name: eth1
+- &host idc.jstvpn.net
+
+- &wilcard1 ava.game.naver.com.idc.jstvpn.net
+- &wilcard2 collection.linefriends.com.idc.jstvpn.net
+
+
+
+proxies:
+  - name: FF WS I
+    server: 34.126.228.76 #dl.cvs.freefiremobile.com
+    port: 80
+    type: vless
+    uuid: *uuid
+    cipher: auto
+    tls: false
+    skip-cert-verify: true
+    servername: *host
+    network: ws
+    ws-opts:
+      path: *path
+      headers:
+        Host: *host
+    udp: true
+    #interface-name: eth1
+  - name: FF WS II
+    server: 148.222.70.31 #www.garena.co.id
+    port: 80
+    type: vless
+    uuid: *uuid
+    cipher: auto
+    tls: false
+    skip-cert-verify: true
+    servername: *host
+    network: ws
+    ws-opts:
+      path: *path
+      headers:
+        Host: *host
+    udp: true
+    #interface-name: eth1
+
+  - name: WhatsApp RING I
+    server: 157.240.22.53 #chat.whatsapp.com
+    port: 443
+    type: vless
+    uuid: *uuid
+    cipher: auto
+    tls: true
+    skip-cert-verify: true
+    servername: onering:idc.jstvpn.net:chat.whatsapp.com
+    network: ws
+    ws-opts:
+      path: *path
+      headers:
+        Host: idc.jstvpn.net
+    udp: true
+  - name: WhatsApp ring II
+    server: media.fcgk35-1.fna.whatsapp.com
+    port: 443
+    type: vless
+    uuid: *uuid
+    cipher: auto
+    tls: true
+    skip-cert-verify: true
+    servername: onering:idc.jstvpn.net:media.fcgk35-1.fna.whatsapp.com
+    network: ws
+    ws-opts:
+      path: *path
+      headers:
+        Host: idc.jstvpn.net
+    udp: true
+  - name: WhatsApp ring III
+    server: 157.240.15.60 #media-sin6-3.cdn.whatsapp.net
+    port: 443
+    type: vless
+    uuid: *uuid
+    cipher: auto
+    tls: true
+    skip-cert-verify: true
+    servername: onering:idc.jstvpn.net:media-sin6-3.cdn.whatsapp.net
+    network: ws
+    ws-opts:
+      path: *path
+      headers:
+        Host: idc.jstvpn.net
+    udp: true
+
+  - name: GENFLIX WS app
+    server: 172.66.0.157 #app.genflix.co.id
+    port: 80
+    type: vless
+    uuid: *uuid
+    cipher: auto
+    tls: false
+    skip-cert-verify: true
+    servername: *host
+    network: ws
+    ws-opts:
+      path: *path
+      headers:
+        Host: *host
+    udp: true
+    #interface-name: eth1
+  - name: GENFLIX WS www
+    server: 104.21.30.242 #www.genflix.co.id
+    port: 80
+    type: vless
+    uuid: *uuid
+    cipher: auto
+    tls: false
+    skip-cert-verify: true
+    servername: *host
+    network: ws
+    ws-opts:
+      path: *path
+      headers:
+        Host: *host
+    udp: true
+    #interface-name: eth1
+  - name: GENFLIX SNI app
+    server: *host
+    port: 443
+    type: vless
+    uuid: *uuid
+    cipher: auto
+    tls: true
+    skip-cert-verify: true
+    servername: app.genflix.co.id
+    network: ws
+    ws-opts:
+      path: *path
+      headers:
+        Host: app.genflix.co.id
+    udp: true
+    #interface-name: eth1
+  - name: GENFLIX SNI www
+    server: *host
+    port: 443
+    type: vless
+    uuid: *uuid
+    cipher: auto
+    tls: true
+    skip-cert-verify: true
+    servername: www.genflix.co.id
+    network: ws
+    ws-opts:
+      path: *path
+      headers:
+        Host: www.genflix.co.id
+    udp: true
+    #interface-name: eth1
+
+  - name: udemy1
+    server: 104.16.143.237
+    port: 443
+    type: vless
+    uuid: *uuid
+    cipher: auto
+    tls: true
+    skip-cert-verify: true
+    servername: *host
+    network: ws
+    ws-opts:
+      path: *path
+      headers:
+        Host: *host
+    udp: true
+    #interface-name: eth1
+  - name: udemy2
+    server: edu.udemy.com
+    port: 80
+    type: vless
+    uuid: *uuid
+    cipher: auto
+    tls: false
+    skip-cert-verify: true
+    servername: *host
+    network: ws
+    ws-opts:
+      path: *path
+      headers:
+        Host: *host
+    udp: true
+    #interface-name: eth1
+
+  - name: zonk ws
+    server: support.zoom.us
+    port: 443
+    type: vless
+    uuid: *uuid
+    cipher: auto
+    tls: true
+    skip-cert-verify: true
+    servername: *host
+    network: ws
+    ws-opts:
+      path: *path
+      headers:
+        Host: *host
+    udp: true
+    #interface-name: eth1
+  - name: zonk SNI
+    server: *host
+    port: 443
+    type: vless
+    uuid: *uuid
+    cipher: auto
+    tls: true
+    skip-cert-verify: true
+    servername: zoomgov.socifiles.com
+    network: ws
+    ws-opts:
+      path: *path
+      headers:
+        Host: zoomgov.socifiles.com
+    udp: true
+  - name: zonk ring
+    server: support.zoom.us
+    port: 443
+    type: vless
+    uuid: *uuid
+    cipher: auto
+    tls: true
+    skip-cert-verify: true
+    servername: onering:idc.jstvpn.net:support.zoom.us
+    network: ws
+    ws-opts:
+      path: *path
+      headers:
+        Host: idc.jstvpn.net
+    udp: true
+
+  - name: opok
+    server: 172.66.0.157
+    port: 443
+    type: vless
+    uuid: *uuid
+    cipher: auto
+    tls: true
+    skip-cert-verify: true
+    servername: *host
+    network: ws
+    ws-opts:
+      path: *path
+      headers:
+        Host: *host
+    udp: true
+    interface-name: eth1
+
+  - name: sushiroll
+    server: www.sushiroll.co.id
+    port: 443
+    type: vless
+    uuid: *uuid
+    cipher: auto
+    tls: true
+    skip-cert-verify: true
+    servername: *host
+    network: ws
+    ws-opts:
+      path: *path
+      headers:
+        Host: *host
+    udp: true
+    interface-name: eth1
+
+  - name: vidio 1
+    server: quiz.vidio.com
+    port: 443
+    type: vless
+    uuid: *uuid
+    cipher: auto
+    tls: true
+    skip-cert-verify: true
+    servername: *host
+    network: ws
+    ws-opts:
+      path: *path
+      headers:
+        Host: *host
+    udp: true
+  - name: vidio 2
+    server: support.vidio.com
+    port: 443
+    type: vless
+    uuid: *uuid
+    cipher: auto
+    tls: true
+    skip-cert-verify: true
+    servername: *host
+    network: ws
+    ws-opts:
+      path: *path
+      headers:
+        Host: *host
+    udp: true
+
+  - name: biz Awal 24 Desember
+    server: 104.18.214.235
+    port: 443
+    type: vless
+    uuid: *uuid
+    cipher: auto
+    tls: true
+    skip-cert-verify: true
+    servername: *wilcard1
+    network: ws
+    ws-opts:
+      path: /vless
+      headers:
+        Host: *wilcard1
+    udp: true
+  - name: biz Akhir Desember
+    server: 23.227.38.32
+    port: 443
+    type: vless
+    uuid: *uuid
+    cipher: auto
+    tls: true
+    skip-cert-verify: true
+    servername: *wilcard2
+    network: ws
+    ws-opts:
+      path: /vless
+      headers:
+        Host: *wilcard2
+    udp: true
