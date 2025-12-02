@@ -12,8 +12,10 @@ default:
 - &wilcard1 ava.game.naver.com.idc.jstvpn.net
 - &wilcard2 collection.linefriends.com.idc.jstvpn.net
 
+
+
 proxies:
-- name: FF SNI I
+  - name: FF SNI I
     server: *host
     port: 443
     type: vless
@@ -28,7 +30,7 @@ proxies:
       headers:
         Host: dl.cvs.freefiremobile.com
     udp: true
-- name: FF SNI II
+  - name: FF SNI II
     server: *host
     port: 443
     type: vless
