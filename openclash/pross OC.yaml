@@ -1,0 +1,185 @@
+proxy-providers:
+  🔰VPN 1🔰:
+    type: file
+    path: "./proxy_provider/account-1.yaml"
+    health-check:
+      enable: true
+      url: http://www.gstatic.com/generate_204
+      interval: 99
+  🔰VPN 2🔰:
+    type: file
+    path: "./proxy_provider/account-2.yaml"
+    health-check:
+      enable: true
+      url: http://www.gstatic.com/generate_204
+      interval: 99
+  🔰DIRECT🔰:
+    type: file
+    path: "./proxy_provider/direct.yaml"
+    health-check:
+      enable: true
+      url: http://www.gstatic.com/generate_204
+      interval: 99
+
+proxy-groups:
+- name: Sosmed
+  type: select
+  disable-udp: false
+  use:
+  - 🔰DIRECT🔰
+  proxies:
+  - 🔰VPN 1🔰
+  - 🔰VPN 1🔰DIRECT🔰
+  - 🔰VPN 2🔰
+  - 🔰VPN 2🔰DIRECT🔰
+  - 🔰VPN 1🔰VPN 2🔰
+  - ☢️LOADBALANCE☢️
+  url: http://www.gstatic.com/generate_204
+  interval: '30'
+- name: Games
+  type: select
+  disable-udp: false
+  use:
+  - 🔰DIRECT🔰
+  proxies:
+  - 🔰VPN 1🔰
+  - 🔰VPN 1🔰DIRECT🔰
+  - 🔰VPN 2🔰
+  - 🔰VPN 2🔰DIRECT🔰
+  - 🔰VPN 1🔰VPN 2🔰
+  - ☢️LOADBALANCE☢️
+  url: http://www.gstatic.com/generate_204
+  interval: '30'
+- name: Streaming
+  type: select
+  disable-udp: false
+  use:
+  - 🔰DIRECT🔰
+  proxies:
+  - 🔰VPN 1🔰
+  - 🔰VPN 1🔰DIRECT🔰
+  - 🔰VPN 2🔰
+  - 🔰VPN 2🔰DIRECT🔰
+  - 🔰VPN 1🔰VPN 2🔰
+  - ☢️LOADBALANCE☢️
+  url: http://www.gstatic.com/generate_204
+  interval: '30'
+- name: Ewallet
+  type: select
+  disable-udp: false
+  use:
+  - 🔰DIRECT🔰
+  proxies:
+  - 🔰VPN 1🔰
+  - 🔰VPN 1🔰DIRECT🔰
+  - 🔰VPN 2🔰
+  - 🔰VPN 2🔰DIRECT🔰
+  - 🔰VPN 1🔰VPN 2🔰
+  - ☢️LOADBALANCE☢️
+  url: http://www.gstatic.com/generate_204
+  interval: '30'
+
+- name: 🔰VPN 1🔰
+  type: load-balance #url-test
+  disable-udp: false
+  use:
+  - 🔰VPN 1🔰
+  url: http://www.gstatic.com/generate_204
+  interval: '30'
+- name: 🔰VPN 2🔰
+  type: fallback
+  disable-udp: false
+  use:
+  - 🔰VPN 2🔰
+  url: http://www.gstatic.com/generate_204
+  interval: '30'
+
+- name: 🔰VPN 1🔰DIRECT🔰
+  type: load-balance
+  strategy: round-robin
+  disable-udp: false
+  proxies:
+  - 🔰VPN 1🔰
+  - DIRECT
+  url: http://www.gstatic.com/generate_204
+  interval: '30'
+- name: 🔰VPN 2🔰DIRECT🔰
+  type: load-balance
+  strategy: round-robin
+  disable-udp: false
+  proxies:
+  - 🔰VPN 2🔰
+  - DIRECT
+  url: http://www.gstatic.com/generate_204
+  interval: '30'
+- name: 🔰VPN 1🔰VPN 2🔰
+  type: load-balance
+  strategy: round-robin
+  disable-udp: false
+  proxies:
+  - 🔰VPN 1🔰
+  - 🔰VPN 2🔰
+  url: http://www.gstatic.com/generate_204
+  interval: '30'
+
+- name: ☢️LOADBALANCE☢️
+  type: load-balance
+  strategy: round-robin
+  disable-udp: false
+  proxies:
+  - 🔰VPN 1🔰
+  - 🔰VPN 2🔰
+  - DIRECT
+  url: http://www.gstatic.com/generate_204
+  interval: '30'
+
+- name: GLOBAL
+  type: select
+  disable-udp: false
+  use:
+  - 🔰DIRECT🔰
+  proxies:
+  - 🔰VPN 1🔰DIRECT🔰
+  - 🔰VPN 1🔰
+  - 🔰VPN 2🔰DIRECT🔰
+  - 🔰VPN 2🔰
+  - 🔰VPN 1🔰VPN 2🔰
+  - ☢️LOADBALANCE☢️
+
+rule-providers:
+  Direct:
+    type: file
+    behavior: classical
+    path: "./rule_provider/direct.yaml"
+  Reject:
+    type: file
+    behavior: classical
+    path: "./rule_provider/reject.yaml"
+  Streaming:
+    type: file
+    behavior: classical
+    path: "./rule_provider/streaming.yaml"
+  Games:
+    type: file
+    behavior: classical
+    path: "./rule_provider/games.yaml"
+  Sosmed:
+    type: file
+    behavior: classical
+    path: "./rule_provider/sosmed.yaml"
+  Ewallet:
+    type: file
+    behavior: classical
+    path: "./rule_provider/ewallet.yaml"
+experimental:
+  ignore-resolve-fail: true
+rules:
+- RULE-SET,Sosmed,Sosmed
+- RULE-SET,Ewallet,Ewallet
+- RULE-SET,Streaming,Streaming
+- RULE-SET,Games,Games
+- RULE-SET,Direct,DIRECT
+- RULE-SET,Reject,REJECT
+- MATCH,GLOBAL
+keep-alive-interval: 5
+keep-alive-idle: 100
