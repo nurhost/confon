@@ -13,7 +13,7 @@ default:
 - &wilcard2 collection.linefriends.com.idc.jstvpn.net
 
 proxies:
- - name: FF SNI I
+- name: FF SNI I
     server: *host
     port: 443
     type: vless
