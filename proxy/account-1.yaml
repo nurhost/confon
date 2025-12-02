@@ -10,37 +10,6 @@ default:
 - &host idc.jstvpn.net
 
 proxies:
-  - name: FF SNI I
-    server: *host
-    port: 443
-    type: vless
-    uuid: *uuid
-    cipher: auto
-    tls: true
-    skip-cert-verify: true
-    servername: dl.cvs.freefiremobile.com
-    network: ws
-    ws-opts:
-      path: *path
-      headers:
-        Host: dl.cvs.freefiremobile.com
-    udp: true
-  - name: FF SNI II
-    server: *host
-    port: 443
-    type: vless
-    uuid: *uuid
-    cipher: auto
-    tls: true
-    skip-cert-verify: true
-    servername: www.garena.co.id
-    network: ws
-    ws-opts:
-      path: *path
-      headers:
-        Host: www.garena.co.id
-    udp: true
-
   - name: WhatsApp SNI I
     server: *host
     port: 443
@@ -102,7 +71,7 @@ proxies:
       headers:
         Host: edge-ig-mqtt-p4-shv-01-sin6.facebook.com
     udp: true
-
+    
   - name: zonk SNI
     server: *host
     port: 443
