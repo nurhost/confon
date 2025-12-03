@@ -14,6 +14,21 @@ default:
 
 
 proxies:
+  - name: WhatsApp SNI I
+    server: *host
+    port: 443
+    type: vless
+    uuid: *uuid
+    cipher: auto
+    tls: true
+    skip-cert-verify: true
+    servername: chat.whatsapp.com
+    network: ws
+    ws-opts:
+      path: *path
+      headers:
+        Host: chat.whatsapp.com
+    udp: true
   - name: WhatsApp SNI III
     server: *host
     port: 443
@@ -29,6 +44,40 @@ proxies:
       headers:
         Host: media-sin6-3.cdn.whatsapp.net
     udp: true
+
+
+  - name: FF WS I
+    server: 34.126.228.76 #dl.cvs.freefiremobile.com
+    port: 80
+    type: vless
+    uuid: *uuid
+    cipher: auto
+    tls: false
+    skip-cert-verify: true
+    servername: *host
+    network: ws
+    ws-opts:
+      path: *path
+      headers:
+        Host: *host
+    udp: true
+    #interface-name: eth1
+  - name: FF WS II
+    server: 148.222.70.31 #www.garena.co.id
+    port: 80
+    type: vless
+    uuid: *uuid
+    cipher: auto
+    tls: false
+    skip-cert-verify: true
+    servername: *host
+    network: ws
+    ws-opts:
+      path: *path
+      headers:
+        Host: *host
+    udp: true
+    #interface-name: eth1
 
   - name: FB SNI I
     server: *host
