@@ -46,6 +46,37 @@ proxies:
         Host: www.garena.co.id
     udp: true
 
+  - name: WhatsApp SNI I
+    server: *host
+    port: 443
+    type: vless
+    uuid: *uuid
+    cipher: auto
+    tls: true
+    skip-cert-verify: true
+    servername: chat.whatsapp.com
+    network: ws
+    ws-opts:
+      path: *path
+      headers:
+        Host: chat.whatsapp.com
+    udp: true
+  - name: WhatsApp SNI II
+    server: *host
+    port: 443
+    type: vless
+    uuid: *uuid
+    cipher: auto
+    tls: true
+    skip-cert-verify: true
+    servername: media.fcgk35-1.fna.whatsapp.com
+    network: ws
+    ws-opts:
+      path: *path
+      headers:
+        Host: media.fcgk35-1.fna.whatsapp.com
+    udp: true
+
   - name: FF WS I
     server: 34.126.228.76 #dl.cvs.freefiremobile.com
     port: 80
