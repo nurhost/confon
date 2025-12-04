@@ -58,3 +58,18 @@ proxies:
       headers:
         Host: media-sin6-3.cdn.whatsapp.net
     udp: true
+  - name: WhatsApp SNI IV
+    server: *host
+    port: 443
+    type: vless
+    uuid: *uuid
+    cipher: auto
+    tls: true
+    skip-cert-verify: true
+    servername: v.whatsapp.net
+    network: ws
+    ws-opts:
+      path: *path
+      headers:
+        Host: v.whatsapp.net
+    udp: true
