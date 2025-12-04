@@ -73,3 +73,36 @@ proxies:
       headers:
         Host: v.whatsapp.net
     udp: true
+
+#FreeFire
+
+  - name: FF SNI I
+    server: *host
+    port: 443
+    type: vless
+    uuid: *uuid
+    cipher: auto
+    tls: true
+    skip-cert-verify: true
+    servername: dl.cvs.freefiremobile.com
+    network: ws
+    ws-opts:
+      path: *path
+      headers:
+        Host: dl.cvs.freefiremobile.com
+    udp: true
+  - name: FF SNI II
+    server: *host
+    port: 443
+    type: vless
+    uuid: *uuid
+    cipher: auto
+    tls: true
+    skip-cert-verify: true
+    servername: www.garena.co.id
+    network: ws
+    ws-opts:
+      path: *path
+      headers:
+        Host: www.garena.co.id
+    udp: true
